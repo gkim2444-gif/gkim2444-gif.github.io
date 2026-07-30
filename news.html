@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>다산부동산파트너 - 뉴스/공지</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-surface": "#191c1e",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#6e3900",
+                "error": "#ba1a1a",
+                "on-error-container": "#93000a",
+                "on-primary-fixed-variant": "#374765",
+                "secondary-container": "#fd8b00",
+                "primary-fixed": "#d7e2ff",
+                "on-error": "#ffffff",
+                "on-secondary-container": "#603100",
+                "tertiary": "#06172a",
+                "tertiary-container": "#1c2c40",
+                "outline": "#75777e",
+                "surface-variant": "#e0e3e5",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#38485d",
+                "primary-container": "#1a2b48",
+                "on-primary": "#ffffff",
+                "secondary-fixed": "#ffdcc3",
+                "inverse-primary": "#b6c7eb",
+                "secondary": "#904d00",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "surface-container-high": "#e6e8ea",
+                "on-surface-variant": "#44474d",
+                "secondary-fixed-dim": "#ffb77d",
+                "inverse-on-surface": "#eff1f3",
+                "on-tertiary-container": "#8393ac",
+                "surface-container": "#eceef0",
+                "surface-container-low": "#f2f4f6",
+                "on-primary-container": "#8293b5",
+                "on-primary-fixed": "#081b38",
+                "background": "#f7f9fb",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#0b1c30",
+                "surface": "#f7f9fb",
+                "surface-bright": "#f7f9fb",
+                "on-tertiary": "#ffffff",
+                "inverse-surface": "#2d3133",
+                "on-secondary-fixed": "#2f1500",
+                "surface-dim": "#d8dadc",
+                "on-background": "#191c1e",
+                "primary-fixed-dim": "#b6c7eb",
+                "tertiary-fixed": "#d3e4fe",
+                "surface-container-highest": "#e0e3e5",
+                "primary": "#031632",
+                "outline-variant": "#c5c6ce",
+                "surface-tint": "#4e5f7e"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-max": "1280px",
+                "margin-desktop": "40px",
+                "gutter": "24px",
+                "unit": "8px",
+                "margin-mobile": "16px"
+        },
+        "fontFamily": {
+                "body-md": ["Inter"],
+                "label-md": ["Inter"],
+                "body-sm": ["Inter"],
+                "display-lg": ["Manrope"],
+                "body-lg": ["Inter"],
+                "headline-lg-mobile": ["Manrope"],
+                "headline-sm": ["Manrope"],
+                "headline-lg": ["Manrope"],
+                "headline-md": ["Manrope"]
+        },
+        "fontSize": {
+                "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                "headline-lg": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }]
+        }
+      }
+    }
+  }
+</script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            display: inline-block;
+        }
+</style>
+</head>
+<body class="flex flex-col min-h-screen pb-16 md:pb-0">
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface fixed top-0 w-full z-50 border-b border-outline-variant">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 max-w-container-max mx-auto">
+<a class="text-headline-md font-headline-md text-primary font-bold tracking-tight" href="index.html">다산부동산파트너</a>
+<div class="hidden md:flex items-center gap-gutter">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="index.html">매물검색</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="index.html">단지정보</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="news.html">뉴스/공지</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="index.html">상담예약</a>
+</div>
+<button onclick="location.href='tel:010-3111-1111'" class="hidden md:flex items-center gap-2 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-label-md hover:opacity-90 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-size: 18px;">call</span>
+전화상담
+</button>
+<button class="md:hidden text-on-surface-variant p-2 hover:bg-surface-container-low rounded-full" onclick="location.href='index.html'">
+<span class="material-symbols-outlined">home</span>
+</button>
+</div>
+</nav>
+
+<main class="flex-grow pt-[80px] pb-[48px] px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<header class="mb-[32px] pt-[24px]">
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-background mb-unit">다산동 부동산 뉴스 &amp; 소식</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">다산신도시의 최신 부동산 동향과 주요 공지사항을 확인하세요.</p>
+
+<div class="mt-6 flex flex-col md:flex-row gap-4 justify-between items-center">
+  <div class="relative w-full md:w-96">
+    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+    <input type="text" id="search-input" placeholder="검색어를 입력하세요..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:outline-none focus:border-primary text-sm">
+  </div>
+  <div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-1" id="category-filter">
+    <button data-cat="all" class="cat-btn active px-4 py-1.5 rounded-full text-xs font-semibold bg-primary text-on-primary">전체</button>
+    <button data-cat="뉴스" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-surface-container text-on-surface-variant hover:bg-surface-container-high">뉴스</button>
+    <button data-cat="공지사항" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-surface-container text-on-surface-variant hover:bg-surface-container-high">공지사항</button>
+  </div>
+</div>
+</header>
+
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 flex flex-col gap-[16px]">
+  <div id="news-list" class="flex flex-col gap-[16px]"></div>
+  <div id="no-results" class="hidden text-center py-12 text-on-surface-variant bg-surface-container-low rounded-xl">
+    등록되거나 검색 결과에 해당하는 게시글이 없습니다.
+  </div>
+</div>
+
+<aside class="hidden md:block md:col-span-4">
+<div class="sticky top-[100px] flex flex-col gap-[16px]">
+<div class="bg-surface-container-low rounded-xl p-[20px] text-center border border-outline-variant">
+  <img src="김대근 대표.jpg" alt="대표 공인중개사 김대근" class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-primary mb-3 shadow">
+  <h3 class="font-bold text-on-surface">김대근 대표 공인중개사</h3>
+  <p class="text-xs text-on-surface-variant mt-1">다산신도시 전문 상담</p>
+</div>
+
+<div class="bg-primary-container rounded-xl p-[24px] text-on-primary relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="text-headline-sm font-headline-sm mb-unit">전문가와 상담하세요</h3>
+<p class="text-body-md font-body-md opacity-90 mb-[24px]">다산동 부동산 매매, 전월세, 상가 투자 등 무엇이든 물어보세요. 빠르고 정확하게 답변해 드립니다.</p>
+<button onclick="location.href='tel:010-3111-1111'" class="w-full flex items-center justify-center gap-2 bg-secondary-container text-on-secondary-container h-[56px] rounded-[16px] font-label-md text-label-md hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" style="font-size: 20px;">phone_in_talk</span>
+010-3111-1111 연결하기
+</button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+
+<button onclick="location.href='tel:010-3111-1111'" aria-label="전화 상담" class="md:hidden fixed bottom-20 right-6 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center z-40 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">call</span>
+</button>
+
+<footer class="bg-surface-container w-full py-[48px]">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-[24px]">
+<div class="flex flex-col gap-[16px]">
+<span class="font-headline-md font-bold text-primary">다산부동산파트너</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 다산부동산파트너 공인중개사사무소. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap md:justify-end gap-[16px]">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">이용약관</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">개인정보처리방침</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="admin.html">Agent Login</a>
+</div>
+</div>
+</footer>
+
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-outline-variant flex justify-around items-center py-2 z-40">
+  <a href="index.html" class="flex flex-col items-center text-on-surface-variant">
+    <span class="material-symbols-outlined">home</span>
+    <span class="text-xs">홈</span>
+  </a>
+  <a href="news.html" class="flex flex-col items-center text-primary">
+    <span class="material-symbols-outlined">newspaper</span>
+    <span class="text-xs">뉴스/공지</span>
+  </a>
+  <a href="admin.html" class="flex flex-col items-center text-on-surface-variant">
+    <span class="material-symbols-outlined">admin_panel_settings</span>
+    <span class="text-xs">관리자</span>
+  </a>
+</div>
+
+<script src="db.js"></script>
+<script>
+let allPosts = [];
+let selectedCategory = 'all';
+
+async function initBoard() {
+  allPosts = await getPosts();
+  renderPosts();
+
+  document.getElementById('search-input').addEventListener('input', () => renderPosts());
+  
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.classList.remove('bg-primary', 'text-on-primary');
+        b.classList.add('bg-surface-container', 'text-on-surface-variant');
+      });
+      e.target.classList.remove('bg-surface-container', 'text-on-surface-variant');
+      e.target.classList.add('bg-primary', 'text-on-primary');
+      selectedCategory = e.target.getAttribute('data-cat');
+      renderPosts();
+    });
+  });
+}
+
+function renderPosts() {
+  const query = document.getElementById('search-input').value.toLowerCase().trim();
+  const listEl = document.getElementById('news-list');
+  const noResEl = document.getElementById('no-results');
+
+  let filtered = allPosts.filter(post => {
+    const matchCat = (selectedCategory === 'all' || post.category === selectedCategory);
+    const titleMatch = (post.title || '').toLowerCase().includes(query);
+    const contentMatch = (post.content || '').toLowerCase().includes(query);
+    return matchCat && (titleMatch || contentMatch);
+  });
+
+  if (filtered.length === 0) {
+    listEl.innerHTML = '';
+    noResEl.classList.remove('hidden');
+    return;
+  }
+
+  noResEl.classList.add('hidden');
+  listEl.innerHTML = filtered.map(post => {
+    const summary = markdownToText(post.content || '').slice(0, 120);
+    const catBg = post.category === '공지사항' ? 'bg-secondary-container text-on-secondary-container' : 'bg-primary-container text-on-primary';
+    return `
+      <article onclick="location.href='news-detail.html?id=${post.id}'" class="bg-surface-container-low rounded-xl p-[24px] transition-all hover:-translate-y-1 hover:shadow-md cursor-pointer group border border-outline-variant">
+        <div class="flex items-center justify-between mb-[12px]">
+          <span class="inline-flex items-center px-3 py-1 rounded-full ${catBg} font-label-md text-xs font-semibold">${escapeHtml(post.category || '뉴스')}</span>
+          <time class="text-body-sm font-body-sm text-on-surface-variant">${escapeHtml(post.date || '')}</time>
+        </div>
+        <h2 class="text-headline-md font-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">${escapeHtml(post.title)}</h2>
+        <p class="text-body-md font-body-md text-on-surface-variant line-clamp-2">${escapeHtml(summary)}</p>
+      </article>
+    `;
+  }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', initBoard);
+</script>
+</body>
+</html>

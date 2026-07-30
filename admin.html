@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>관리자 대시보드 - 다산부동산파트너</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-surface": "#191c1e",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#6e3900",
+                "error": "#ba1a1a",
+                "on-error-container": "#93000a",
+                "on-primary-fixed-variant": "#374765",
+                "secondary-container": "#fd8b00",
+                "primary-fixed": "#d7e2ff",
+                "on-error": "#ffffff",
+                "on-secondary-container": "#603100",
+                "tertiary": "#06172a",
+                "tertiary-container": "#1c2c40",
+                "outline": "#75777e",
+                "surface-variant": "#e0e3e5",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#38485d",
+                "primary-container": "#1a2b48",
+                "on-primary": "#ffffff",
+                "secondary-fixed": "#ffdcc3",
+                "inverse-primary": "#b6c7eb",
+                "secondary": "#904d00",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "surface-container-high": "#e6e8ea",
+                "on-surface-variant": "#44474d",
+                "secondary-fixed-dim": "#ffb77d",
+                "inverse-on-surface": "#eff1f3",
+                "on-tertiary-container": "#8393ac",
+                "surface-container": "#eceef0",
+                "surface-container-low": "#f2f4f6",
+                "on-primary-container": "#8293b5",
+                "on-primary-fixed": "#081b38",
+                "background": "#f7f9fb",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#0b1c30",
+                "surface": "#f7f9fb",
+                "surface-bright": "#f7f9fb",
+                "on-tertiary": "#ffffff",
+                "inverse-surface": "#2d3133",
+                "on-secondary-fixed": "#2f1500",
+                "surface-dim": "#d8dadc",
+                "on-background": "#191c1e",
+                "primary-fixed-dim": "#b6c7eb",
+                "tertiary-fixed": "#d3e4fe",
+                "surface-container-highest": "#e0e3e5",
+                "primary": "#031632",
+                "outline-variant": "#c5c6ce",
+                "surface-tint": "#4e5f7e"
+        }
+      }
+    }
+  }
+</script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+</style>
+</head>
+<body class="flex flex-col min-h-screen">
+<nav class="bg-surface-container-lowest fixed top-0 w-full z-50 border-b border-outline-variant">
+<div class="flex justify-between items-center px-4 md:px-10 h-16 max-w-6xl mx-auto">
+<a class="text-xl font-bold text-primary tracking-tight" href="index.html">다산부동산파트너</a>
+<div class="flex items-center gap-4">
+<a class="text-sm text-on-surface-variant hover:text-primary" href="index.html">메인으로</a>
+<a class="text-sm text-on-surface-variant hover:text-primary" href="news.html">게시판 보기</a>
+</div>
+</div>
+</nav>
+
+<main class="flex-grow pt-24 pb-12 px-4 md:px-10 max-w-6xl mx-auto w-full flex items-center justify-center">
+
+<div id="login-view" class="w-full max-w-md bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant shadow-lg my-12">
+  <div class="text-center mb-6">
+    <span class="material-symbols-outlined text-primary" style="font-size:48px;">lock</span>
+    <h1 class="text-2xl font-bold text-on-surface mt-2">관리자 로그인</h1>
+    <p class="text-sm text-on-surface-variant mt-1">게시판 관리를 위해 비밀번호를 입력해 주세요.</p>
+  </div>
+  <form id="login-form" class="flex flex-col gap-4">
+    <div>
+      <label class="block text-xs font-semibold text-on-surface mb-1">비밀번호</label>
+      <input type="password" id="password-input" required placeholder="관리자 비밀번호" class="w-full px-4 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:border-primary text-sm">
+    </div>
+    <div id="login-error" class="hidden text-xs text-error font-semibold bg-error-container p-2.5 rounded-lg"></div>
+    <button type="submit" class="w-full py-3 rounded-lg bg-primary text-on-primary font-semibold text-sm hover:opacity-90 transition-opacity">
+      로그인
+    </button>
+  </form>
+</div>
+
+<div id="dashboard-view" class="hidden w-full">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+    <div>
+      <h1 class="text-3xl font-bold text-on-surface">게시글 관리 대시보드</h1>
+      <p class="text-sm text-on-surface-variant mt-1">전체 게시글 목록 조회, 수정 및 삭제 관리</p>
+    </div>
+    <div class="flex gap-3">
+      <a href="news-write.html" class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-semibold text-sm flex items-center gap-2 hover:opacity-90 shadow-sm">
+        <span class="material-symbols-outlined" style="font-size:18px;">add</span> 새 글 작성
+      </a>
+      <button id="logout-btn" class="px-4 py-2.5 border border-outline-variant rounded-xl text-on-surface-variant hover:bg-surface-container text-sm font-semibold">
+        로그아웃
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm text-on-surface">
+        <thead class="bg-surface-container-low text-xs text-on-surface-variant font-semibold border-b border-outline-variant">
+          <tr>
+            <th class="p-4 w-16 text-center">번호</th>
+            <th class="p-4 w-28">카테고리</th>
+            <th class="p-4">제목</th>
+            <th class="p-4 w-32">작성일</th>
+            <th class="p-4 w-36 text-center">관리</th>
+          </tr>
+        </thead>
+        <tbody id="posts-table-body" class="divide-y divide-outline-variant">
+        </tbody>
+      </table>
+    </div>
+    <div id="empty-posts" class="hidden text-center py-12 text-on-surface-variant">
+      작성된 게시글이 없습니다.
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer class="bg-surface-container w-full py-6 mt-auto">
+<div class="max-w-6xl mx-auto px-4 text-center text-xs text-on-surface-variant">
+© 2024 다산부동산파트너 공인중개사사무소. All rights reserved.
+</div>
+</footer>
+
+<script src="db.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const loginView = document.getElementById('login-view');
+  const dashboardView = document.getElementById('dashboard-view');
+  const loginForm = document.getElementById('login-form');
+  const passwordInput = document.getElementById('password-input');
+  const loginError = document.getElementById('login-error');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  if (isAdmin()) {
+    showDashboard();
+  } else {
+    showLogin();
+  }
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loginError.classList.add('hidden');
+    const inputVal = passwordInput.value;
+    const cfg = await loadConfig();
+    const targetPassword = cfg.admin_password || 'admin1234';
+
+    if (inputVal === targetPassword) {
+      sessionStorage.setItem('isAdmin', 'true');
+      location.reload();
+    } else {
+      loginError.innerText = '비밀번호가 올바르지 않습니다.';
+      loginError.classList.remove('hidden');
+    }
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    sessionStorage.removeItem('isAdmin');
+    location.reload();
+  });
+
+  function showLogin() {
+    loginView.classList.remove('hidden');
+    dashboardView.classList.add('hidden');
+  }
+
+  async function showDashboard() {
+    loginView.classList.add('hidden');
+    dashboardView.classList.remove('hidden');
+    await loadTableData();
+  }
+
+  async function loadTableData() {
+    const posts = await getPosts();
+    const tbody = document.getElementById('posts-table-body');
+    const emptyEl = document.getElementById('empty-posts');
+
+    if (!posts || posts.length === 0) {
+      tbody.innerHTML = '';
+      emptyEl.classList.remove('hidden');
+      return;
+    }
+
+    emptyEl.classList.add('hidden');
+    tbody.innerHTML = posts.map((post, idx) => {
+      return `
+        <tr class="hover:bg-surface-container-low transition-colors">
+          <td class="p-4 text-center font-mono text-xs text-on-surface-variant">${idx + 1}</td>
+          <td class="p-4">
+            <span class="inline-block px-2.5 py-0.5 text-xs font-semibold rounded-full bg-primary-container text-on-primary">${escapeHtml(post.category || '뉴스')}</span>
+          </td>
+          <td class="p-4 font-semibold text-on-surface">
+            <a href="news-detail.html?id=${post.id}" class="hover:text-primary transition-colors">${escapeHtml(post.title)}</a>
+          </td>
+          <td class="p-4 text-xs text-on-surface-variant">${escapeHtml(post.date || '')}</td>
+          <td class="p-4 text-center space-x-2">
+            <a href="news-write.html?id=${post.id}" class="inline-block px-2.5 py-1 text-xs bg-primary text-on-primary rounded font-semibold hover:opacity-90">수정</a>
+            <button onclick="deletePostAdmin(${post.id})" class="px-2.5 py-1 text-xs bg-error text-on-error rounded font-semibold hover:opacity-90">삭제</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  window.deletePostAdmin = async function(id) {
+    if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+      await deletePost(id);
+      await loadTableData();
+    }
+  };
+});
+</script>
+</body>
+</html>

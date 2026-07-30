@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>다산부동산파트너 - 남양주 다산동 공인중개사</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-surface": "#191c1e",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#6e3900",
+                "error": "#ba1a1a",
+                "on-error-container": "#93000a",
+                "on-primary-fixed-variant": "#374765",
+                "secondary-container": "#fd8b00",
+                "primary-fixed": "#d7e2ff",
+                "on-error": "#ffffff",
+                "on-secondary-container": "#603100",
+                "tertiary": "#06172a",
+                "tertiary-container": "#1c2c40",
+                "outline": "#75777e",
+                "surface-variant": "#e0e3e5",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#38485d",
+                "primary-container": "#1a2b48",
+                "on-primary": "#ffffff",
+                "secondary-fixed": "#ffdcc3",
+                "inverse-primary": "#b6c7eb",
+                "secondary": "#904d00",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "surface-container-high": "#e6e8ea",
+                "on-surface-variant": "#44474d",
+                "secondary-fixed-dim": "#ffb77d",
+                "inverse-on-surface": "#eff1f3",
+                "on-tertiary-container": "#8393ac",
+                "surface-container": "#eceef0",
+                "surface-container-low": "#f2f4f6",
+                "on-primary-container": "#8293b5",
+                "on-primary-fixed": "#081b38",
+                "background": "#f7f9fb",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#0b1c30",
+                "surface": "#f7f9fb",
+                "surface-bright": "#f7f9fb",
+                "on-tertiary": "#ffffff",
+                "inverse-surface": "#2d3133",
+                "on-secondary-fixed": "#2f1500",
+                "surface-dim": "#d8dadc",
+                "on-background": "#191c1e",
+                "primary-fixed-dim": "#b6c7eb",
+                "tertiary-fixed": "#d3e4fe",
+                "surface-container-highest": "#e0e3e5",
+                "primary": "#031632",
+                "outline-variant": "#c5c6ce",
+                "surface-tint": "#4e5f7e"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-max": "1280px",
+                "margin-desktop": "40px",
+                "gutter": "24px",
+                "unit": "8px",
+                "margin-mobile": "16px",
+                "section-gap": "48px",
+                "stack-lg": "24px",
+                "stack-md": "16px",
+                "container-margin": "20px",
+                "stack-sm": "8px"
+        },
+        "fontFamily": {
+                "body-md": ["Inter"],
+                "label-md": ["Inter"],
+                "body-sm": ["Inter"],
+                "display-lg": ["Manrope"],
+                "body-lg": ["Inter"],
+                "headline-lg-mobile": ["Manrope"],
+                "headline-sm": ["Manrope"],
+                "headline-lg": ["Manrope"],
+                "headline-md": ["Manrope"],
+                "h1": ["Manrope"],
+                "h2": ["Manrope"],
+                "h3": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"],
+                "h1-mobile": ["Manrope"]
+        },
+        "fontSize": {
+                "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                "headline-lg": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                "h1": ["36px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                "h2": ["30px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                "label": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                "h1-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }]
+        }
+      }
+    }
+  }
+</script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+        .shadow-lifted {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+<header class="bg-surface-container-lowest dark:bg-inverse-surface fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline">
+<div class="flex justify-between items-center px-container-margin h-16 max-w-[1200px] mx-auto">
+<div class="h-10 flex items-center">
+  <a href="index.html" class="font-h2 text-h2 font-bold text-primary dark:text-primary-fixed tracking-tight">다산부동산파트너</a>
+</div>
+<nav class="hidden md:flex gap-stack-lg">
+<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="index.html">매물검색</a>
+<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="index.html">단지정보</a>
+<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="news.html">뉴스/공지</a>
+<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="index.html">상담예약</a>
+</nav>
+<button onclick="location.href='tel:010-3111-1111'" class="hidden md:flex items-center gap-2 bg-[#FF8C00] text-white font-body text-body px-4 py-2 rounded-full hover:opacity-90 transition-colors active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
+전화상담
+</button>
+<button class="md:hidden text-primary-container" onclick="location.href='news.html'">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-grow pt-16">
+<section class="relative w-full h-[600px] flex items-center justify-center overflow-hidden bg-surface-container-highest">
+<div class="absolute inset-0 z-0">
+<div class="bg-cover bg-center w-full h-full opacity-40 mix-blend-multiply bg-surface-dim" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC0jffC96SevKtMvnQDXVGyKJp-4epHVdCH6kqbXc5ipORh9J9H-rge25RyoMBcbV9sq3H33hP42S4APxVFzhCGs8E-7G4VRworAQUq8m6ybplJF6FxjyQbK-wAO3X-C_so6o56hDhYlpa_uo85oHvZzoY9H2y2nXXR1LbzdcNHI6sBoOj0SUBZ8-Tdp9BwisCqfsnb-AfpMrvyQiAI-lntWn_coLvIBYxIVSa1HL5d2jqes6m__aAuLw')"></div>
+</div>
+<div class="relative z-10 text-center px-container-margin max-w-[800px] flex flex-col items-center gap-stack-lg">
+<span class="inline-block bg-[#1A2B48] text-white font-label text-label px-4 py-2 rounded-full mb-2">남양주 다산동 전문</span>
+<h1 class="font-h1-mobile md:font-h1 text-h1-mobile md:text-h1 text-on-surface text-balance">
+다산의 중심에서<br>당신의 완벽한 공간을 찾습니다
+</h1>
+<p class="font-body text-body text-on-surface-variant max-w-lg mt-2">
+아파트부터 상가, 오피스텔까지.<br>다산동 지역 전문가가 가장 정확하고 빠른 매물 정보를 제공합니다.
+</p>
+<button onclick="location.href='tel:010-3111-1111'" class="mt-stack-md bg-[#FF8C00] hover:opacity-90 text-white font-h3 text-h3 h-14 px-8 rounded-full flex items-center gap-2 hover-lift shadow-lifted transition-all active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
+지금 바로 전화 상담하기
+</button>
+</div>
+</section>
+
+<!-- Agent Profile Representative Section -->
+<section class="py-section-gap px-container-margin max-w-[1200px] mx-auto">
+<div class="bg-surface-container-low rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 shadow-lifted">
+<div class="w-44 h-44 rounded-full overflow-hidden flex-shrink-0 border-4 border-white shadow-md">
+<img src="김대근 대표.jpg" alt="대표 공인중개사 김대근" class="w-full h-full object-cover">
+</div>
+<div class="flex-1 text-center md:text-left">
+<span class="inline-block bg-primary-container text-on-primary font-label text-label px-3 py-1 rounded-full mb-3">대표 공인중개사</span>
+<h2 class="font-h2 text-h2 text-on-surface mb-2">김대근 대표</h2>
+<p class="font-body text-body text-on-surface-variant leading-relaxed">
+"다산동 지역의 검증된 정보와 정직한 상담으로 고객 여러분의 성공적인 부동산 거래를 최우선으로 생각합니다. 아파트, 상가, 오피스텔 등 맞춤형 정밀 분석을 도와드립니다."
+</p>
+</div>
+</div>
+</section>
+
+<section class="py-section-gap px-container-margin max-w-[1200px] mx-auto">
+<div class="mb-stack-lg text-center md:text-left">
+<h2 class="font-h2 text-h2 text-on-surface">다양한 매물을 만나보세요</h2>
+<p class="font-body text-body text-on-surface-variant mt-2">다산신도시의 프리미엄 매물을 선별하여 추천해 드립니다.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface rounded-2xl p-6 hover-lift flex flex-col justify-between h-[300px] relative overflow-hidden group">
+<div class="relative z-10">
+<span class="inline-block bg-white text-[#1A2B48] font-label text-label px-3 py-1 rounded-full shadow-sm mb-4">인기</span>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">아파트 / 주상복합</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">다산신도시 랜드마크 단지 매매/전세</p>
+</div>
+<div class="relative z-10 flex justify-end">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-[#1A2B48] group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">apartment</span>
+</div>
+</div>
+<div class="absolute right-[-20px] bottom-[-20px] opacity-10">
+<span class="material-symbols-outlined" style="font-size: 150px; font-variation-settings: 'FILL' 1;">location_city</span>
+</div>
+</div>
+<div class="bg-surface rounded-2xl p-6 hover-lift flex flex-col justify-between h-[300px] relative overflow-hidden group">
+<div class="relative z-10">
+<span class="inline-block bg-white text-secondary font-label text-label px-3 py-1 rounded-full shadow-sm mb-4">수익형</span>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">상가 / 프라자</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">역세권 및 중심상업지구 우량 상가</p>
+</div>
+<div class="relative z-10 flex justify-end">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+</div>
+<div class="absolute right-[-20px] bottom-[-20px] opacity-10 text-secondary">
+<span class="material-symbols-outlined" style="font-size: 150px; font-variation-settings: 'FILL' 1;">store</span>
+</div>
+</div>
+<div class="bg-surface rounded-2xl p-6 hover-lift flex flex-col justify-between h-[300px] relative overflow-hidden group">
+<div class="relative z-10">
+<span class="inline-block bg-white text-secondary font-label text-label px-3 py-1 rounded-full shadow-sm mb-4">투자</span>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">오피스텔 / 지산</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">1인 가구 및 기업을 위한 맞춤 공간</p>
+</div>
+<div class="relative z-10 flex justify-end">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">business_center</span>
+</div>
+</div>
+<div class="absolute right-[-20px] bottom-[-20px] opacity-10 text-secondary">
+<span class="material-symbols-outlined" style="font-size: 150px; font-variation-settings: 'FILL' 1;">domain</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="py-section-gap px-container-margin max-w-[1000px] mx-auto">
+<div class="bg-[#1A2B48] dark:bg-inverse-surface rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-stack-lg shadow-lifted">
+<div class="text-center md:text-left flex-1">
+<h2 class="font-h2 text-h2 text-white dark:text-primary-fixed mb-2">궁금한 매물이 있으신가요?</h2>
+<p class="font-body text-body text-white/80 dark:text-primary-fixed/80">
+조건을 말씀해주시면 꼭 맞는 매물을 찾아드립니다.<br>언제든 편하게 연락주세요.
+</p>
+</div>
+<div class="flex flex-col items-center gap-stack-sm bg-white dark:bg-surface-container p-6 rounded-2xl min-w-[280px]">
+<span class="font-label text-label text-muted-text">대표 상담 전화</span>
+<div class="font-h1 text-h1 text-[#FF8C00] dark:text-primary-fixed tracking-tight">010-3111-1111</div>
+<button onclick="location.href='tel:010-3111-1111'" class="w-full mt-2 bg-[#FF8C00] hover:opacity-90 text-white font-h3 text-body h-12 rounded-lg flex items-center justify-center gap-2 transition-colors active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
+전화 걸기
+</button>
+</div>
+</div>
+</section>
+
+<section id="recent-board-section" class="py-section-gap px-container-margin max-w-[1200px] mx-auto border-t border-outline-variant">
+<div class="flex justify-between items-end mb-stack-lg">
+<div>
+<h2 class="font-h2 text-h2 text-on-surface">부동산 소식 &amp; 단지 정보</h2>
+<p class="font-body text-body text-on-surface-variant mt-1">다산신도시의 최신 부동산 게시글을 확인해보세요.</p>
+</div>
+<a class="font-body-sm text-body-sm text-[#FF8C00] hover:underline flex items-center gap-1 font-semibold" href="news.html">
+전체 게시글 보기 <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</a>
+</div>
+<div id="board-preview" class="flex flex-col gap-stack-md"></div>
+</section>
+</main>
+<footer class="bg-surface-container w-full py-section-gap border-t border-outline-variant mt-auto">
+<div class="max-w-[1200px] mx-auto px-container-margin grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<div class="flex flex-col gap-stack-sm">
+<div class="flex items-center mb-2">
+  <span class="font-h3 text-h3 font-bold text-primary">다산부동산파트너</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">
+남양주시 다산동 최고의 공인중개사사무소입니다.<br>
+정직과 신뢰를 바탕으로 최적의 거래를 약속드립니다.
+</p>
+<div class="mt-4 text-outline font-body-sm text-body-sm">
+© 2024 다산부동산파트너 공인중개사사무소. All rights reserved.
+</div>
+</div>
+<div class="flex flex-col md:items-end justify-start gap-stack-md">
+<div class="flex gap-4">
+<a class="font-body-sm text-body-sm text-outline hover:text-[#FF8C00] transition-colors" href="#">이용약관</a>
+<a class="font-body-sm text-body-sm text-outline hover:text-[#FF8C00] transition-colors" href="#">개인정보처리방침</a>
+<a class="font-body-sm text-body-sm text-outline hover:text-[#FF8C00] transition-colors" href="id="agent-login-btn" id="agent-login-btn" href="admin.html">Agent Login</a>
+</div>
+<div class="font-body-sm text-body-sm text-outline mt-4 md:text-right">
+대표: 김대근 | 등록번호: 123-45-67890<br>
+주소: 경기도 남양주시 다산중앙로 123, 1층<br>
+전화: 010-3111-1111
+</div>
+</div>
+</div>
+</footer>
+
+<!-- Bottom Navigation for Mobile -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-outline-variant flex justify-around items-center py-2 z-40">
+  <a href="index.html" class="flex flex-col items-center text-primary">
+    <span class="material-symbols-outlined">home</span>
+    <span class="text-xs">홈</span>
+  </a>
+  <a href="news.html" class="flex flex-col items-center text-on-surface-variant">
+    <span class="material-symbols-outlined">newspaper</span>
+    <span class="text-xs">뉴스/공지</span>
+  </a>
+  <a href="admin.html" class="flex flex-col items-center text-on-surface-variant">
+    <span class="material-symbols-outlined">admin_panel_settings</span>
+    <span class="text-xs">관리자</span>
+  </a>
+</div>
+
+<script src="db.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const container = document.getElementById('board-preview');
+  const section = document.getElementById('recent-board-section');
+  const posts = await getPosts();
+  
+  if (!posts || posts.length === 0) {
+    if (section) section.style.display = 'none';
+    return;
+  }
+  
+  const recentPosts = posts.slice(0, 3);
+  container.innerHTML = recentPosts.map(post => {
+    const summary = markdownToText(post.content || '').slice(0, 60);
+    return `
+      <a class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-surface-container-lowest hover:bg-surface transition-colors rounded-xl border border-outline-variant group hover-lift" href="news-detail.html?id=${post.id}">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+          <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-primary-container text-on-primary w-fit">${escapeHtml(post.category || '뉴스')}</span>
+          <div>
+            <h3 class="font-body font-bold text-on-surface group-hover:text-[#FF8C00] transition-colors">${escapeHtml(post.title)}</h3>
+            <p class="text-sm text-on-surface-variant line-clamp-1 mt-1">${escapeHtml(summary)}</p>
+          </div>
+        </div>
+        <span class="font-body-sm text-body-sm text-outline mt-2 sm:mt-0 flex-shrink-0">${escapeHtml(post.date || '')}</span>
+      </a>
+    `;
+  }).join('');
+});
+</script>
+</body>
+</html>

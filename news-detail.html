@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>게시글 상세보기 - 다산부동산파트너</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-surface": "#191c1e",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#6e3900",
+                "error": "#ba1a1a",
+                "on-error-container": "#93000a",
+                "on-primary-fixed-variant": "#374765",
+                "secondary-container": "#fd8b00",
+                "primary-fixed": "#d7e2ff",
+                "on-error": "#ffffff",
+                "on-secondary-container": "#603100",
+                "tertiary": "#06172a",
+                "tertiary-container": "#1c2c40",
+                "outline": "#75777e",
+                "surface-variant": "#e0e3e5",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#38485d",
+                "primary-container": "#1a2b48",
+                "on-primary": "#ffffff",
+                "secondary-fixed": "#ffdcc3",
+                "inverse-primary": "#b6c7eb",
+                "secondary": "#904d00",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "surface-container-high": "#e6e8ea",
+                "on-surface-variant": "#44474d",
+                "secondary-fixed-dim": "#ffb77d",
+                "inverse-on-surface": "#eff1f3",
+                "on-tertiary-container": "#8393ac",
+                "surface-container": "#eceef0",
+                "surface-container-low": "#f2f4f6",
+                "on-primary-container": "#8293b5",
+                "on-primary-fixed": "#081b38",
+                "background": "#f7f9fb",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#0b1c30",
+                "surface": "#f7f9fb",
+                "surface-bright": "#f7f9fb",
+                "on-tertiary": "#ffffff",
+                "inverse-surface": "#2d3133",
+                "on-secondary-fixed": "#2f1500",
+                "surface-dim": "#d8dadc",
+                "on-background": "#191c1e",
+                "primary-fixed-dim": "#b6c7eb",
+                "tertiary-fixed": "#d3e4fe",
+                "surface-container-highest": "#e0e3e5",
+                "primary": "#031632",
+                "outline-variant": "#c5c6ce",
+                "surface-tint": "#4e5f7e"
+        },
+        "fontFamily": {
+                "body": ["Inter"],
+                "headline": ["Manrope"]
+        }
+      }
+    }
+  }
+</script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+</style>
+</head>
+<body class="flex flex-col min-h-screen pb-16 md:pb-0">
+<nav class="bg-surface-container-lowest fixed top-0 w-full z-50 border-b border-outline-variant">
+<div class="flex justify-between items-center px-4 md:px-10 h-16 max-w-5xl mx-auto">
+<a class="text-xl font-bold text-primary tracking-tight" href="index.html">다산부동산파트너</a>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm" href="index.html">매물검색</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm" href="index.html">단지정보</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 text-sm" href="news.html">뉴스/공지</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm" href="index.html">상담예약</a>
+</div>
+<button onclick="location.href='news.html'" class="flex items-center gap-1 text-on-surface-variant hover:text-primary text-sm">
+<span class="material-symbols-outlined">arrow_back</span> 목록으로
+</button>
+</div>
+</nav>
+
+<main class="flex-grow pt-24 pb-12 px-4 md:px-10 max-w-4xl mx-auto w-full">
+<article class="bg-surface-container-lowest rounded-2xl p-6 md:p-10 border border-outline-variant shadow-sm">
+<header class="border-b border-outline-variant pb-6 mb-6">
+<div class="flex items-center justify-between gap-4 mb-3">
+  <span id="post-category" class="px-3 py-1 rounded-full text-xs font-semibold bg-primary-container text-on-primary"></span>
+  <time id="post-date" class="text-xs text-on-surface-variant"></time>
+</div>
+<h1 id="post-title" class="text-2xl md:text-3xl font-bold text-on-surface leading-snug"></h1>
+
+<div id="admin-actions" class="hidden flex gap-2 mt-4 pt-4 border-t border-outline-variant">
+  <button id="edit-btn" class="px-3 py-1.5 bg-primary text-on-primary rounded text-xs font-semibold hover:opacity-90 transition-opacity">수정</button>
+  <button id="delete-btn" class="px-3 py-1.5 bg-error text-on-error rounded text-xs font-semibold hover:opacity-90 transition-opacity">삭제</button>
+</div>
+</header>
+
+<div id="post-content" class="text-on-surface-variant leading-relaxed text-base"></div>
+</article>
+
+<div class="mt-6 flex justify-between items-center">
+  <a href="news.html" class="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface hover:bg-surface-container transition-colors text-sm font-semibold flex items-center gap-1">
+    <span class="material-symbols-outlined" style="font-size:18px;">format_list_bulleted</span> 목록으로 돌아가기
+  </a>
+  <button onclick="location.href='tel:010-3111-1111'" class="px-5 py-2.5 rounded-xl bg-secondary-container text-on-secondary-container text-sm font-semibold flex items-center gap-1 hover:opacity-90">
+    <span class="material-symbols-outlined" style="font-size:18px;">call</span> 전화 상담하기
+  </button>
+</div>
+</main>
+
+<footer class="bg-surface-container w-full py-8 mt-auto">
+<div class="max-w-4xl mx-auto px-4 text-center text-xs text-on-surface-variant">
+© 2024 다산부동산파트너 공인중개사사무소. All rights reserved. | <a href="admin.html" class="hover:underline">Agent Login</a>
+</div>
+</footer>
+
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-outline-variant flex justify-around items-center py-2 z-40">
+  <a href="index.html" class="flex flex-col items-center text-on-surface-variant">
+    <span class="material-symbols-outlined">home</span>
+    <span class="text-xs">홈</span>
+  </a>
+  <a href="news.html" class="flex flex-col items-center text-primary">
+    <span class="material-symbols-outlined">newspaper</span>
+    <span class="text-xs">뉴스/공지</span>
+  </a>
+  <a href="admin.html" class="flex flex-col items-center text-on-surface-variant">
+    <span class="material-symbols-outlined">admin_panel_settings</span>
+    <span class="text-xs">관리자</span>
+  </a>
+</div>
+
+<script src="db.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const postId = urlParams.get('id');
+
+  if (!postId) {
+    alert('잘못된 접근입니다.');
+    window.location.href = 'news.html';
+    return;
+  }
+
+  const posts = await getPosts();
+  const post = posts.find(p => String(p.id) === String(postId));
+
+  if (!post) {
+    document.getElementById('post-title').innerText = '게시글을 찾을 수 없습니다.';
+    document.getElementById('post-content').innerHTML = '<p class="text-error">요청하신 게시글이 존재하지 않거나 삭제되었습니다.</p>';
+    return;
+  }
+
+  document.getElementById('post-title').innerText = post.title || '';
+  document.getElementById('post-category').innerText = post.category || '뉴스';
+  document.getElementById('post-date').innerText = post.date || '';
+  document.getElementById('post-content').innerHTML = renderMarkdown(post.content || '');
+
+  if (isAdmin()) {
+    const adminActions = document.getElementById('admin-actions');
+    adminActions.classList.remove('hidden');
+    
+    document.getElementById('edit-btn').onclick = () => {
+      window.location.href = `news-write.html?id=${post.id}`;
+    };
+
+    document.getElementById('delete-btn').onclick = async () => {
+      if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+        await deletePost(post.id);
+        alert('게시글이 삭제되었습니다.');
+        window.location.href = 'news.html';
+      }
+    };
+  }
+});
+</script>
+</body>
+</html>

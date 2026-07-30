@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>게시글 작성/수정 - 다산부동산파트너</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-surface": "#191c1e",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#6e3900",
+                "error": "#ba1a1a",
+                "on-error-container": "#93000a",
+                "on-primary-fixed-variant": "#374765",
+                "secondary-container": "#fd8b00",
+                "primary-fixed": "#d7e2ff",
+                "on-error": "#ffffff",
+                "on-secondary-container": "#603100",
+                "tertiary": "#06172a",
+                "tertiary-container": "#1c2c40",
+                "outline": "#75777e",
+                "surface-variant": "#e0e3e5",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#38485d",
+                "primary-container": "#1a2b48",
+                "on-primary": "#ffffff",
+                "secondary-fixed": "#ffdcc3",
+                "inverse-primary": "#b6c7eb",
+                "secondary": "#904d00",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "surface-container-high": "#e6e8ea",
+                "on-surface-variant": "#44474d",
+                "secondary-fixed-dim": "#ffb77d",
+                "inverse-on-surface": "#eff1f3",
+                "on-tertiary-container": "#8393ac",
+                "surface-container": "#eceef0",
+                "surface-container-low": "#f2f4f6",
+                "on-primary-container": "#8293b5",
+                "on-primary-fixed": "#081b38",
+                "background": "#f7f9fb",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#0b1c30",
+                "surface": "#f7f9fb",
+                "surface-bright": "#f7f9fb",
+                "on-tertiary": "#ffffff",
+                "inverse-surface": "#2d3133",
+                "on-secondary-fixed": "#2f1500",
+                "surface-dim": "#d8dadc",
+                "on-background": "#191c1e",
+                "primary-fixed-dim": "#b6c7eb",
+                "tertiary-fixed": "#d3e4fe",
+                "surface-container-highest": "#e0e3e5",
+                "primary": "#031632",
+                "outline-variant": "#c5c6ce",
+                "surface-tint": "#4e5f7e"
+        }
+      }
+    }
+  }
+</script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+</style>
+</head>
+<body class="flex flex-col min-h-screen pb-24 md:pb-12">
+<nav class="bg-surface-container-lowest fixed top-0 w-full z-50 border-b border-outline-variant">
+<div class="flex justify-between items-center px-4 md:px-10 h-16 max-w-4xl mx-auto">
+<a class="text-xl font-bold text-primary tracking-tight" href="admin.html">관리자 대시보드</a>
+<a class="text-sm text-on-surface-variant hover:text-primary flex items-center gap-1" href="admin.html">
+<span class="material-symbols-outlined">close</span> 취소
+</a>
+</div>
+</nav>
+
+<main class="flex-grow pt-24 px-4 md:px-10 max-w-4xl mx-auto w-full">
+<div class="bg-surface-container-lowest rounded-2xl p-6 md:p-10 border border-outline-variant shadow-sm">
+<h1 id="page-title" class="text-2xl font-bold text-on-surface mb-6 border-b border-outline-variant pb-4">새 게시글 작성</h1>
+
+<form id="write-form" class="flex flex-col gap-6">
+  <div>
+    <label class="block text-sm font-semibold text-on-surface mb-2">카테고리</label>
+    <select id="post-category-input" class="w-full px-4 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:border-primary text-sm">
+      <option value="뉴스">뉴스</option>
+      <option value="공지사항">공지사항</option>
+      <option value="단지정보">단지정보</option>
+      <option value="기타">기타</option>
+    </select>
+  </div>
+
+  <div>
+    <label class="block text-sm font-semibold text-on-surface mb-2">제목</label>
+    <input type="text" id="post-title-input" required placeholder="게시글 제목을 입력하세요" class="w-full px-4 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:border-primary text-sm">
+  </div>
+
+  <div>
+    <div class="flex justify-between items-center mb-2">
+      <label class="block text-sm font-semibold text-on-surface">본문 내용 (마크다운 지원)</label>
+      <span class="text-xs text-outline"># 제목, - 목록, **굵게**, > 인용 등 지원</span>
+    </div>
+    <textarea id="post-content-input" required rows="14" placeholder="마크다운 형식으로 내용을 작성해 주세요..." class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:border-primary font-mono text-sm leading-relaxed"></textarea>
+  </div>
+
+  <div id="status-msg" class="hidden text-sm p-3 rounded-lg"></div>
+
+  <div class="flex justify-end gap-3 pt-4 border-t border-outline-variant">
+    <button type="button" onclick="location.href='admin.html'" class="px-6 py-2.5 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container transition-colors text-sm font-semibold">취소</button>
+    <button type="submit" id="submit-btn" class="px-6 py-2.5 rounded-lg bg-primary text-on-primary hover:opacity-90 transition-opacity text-sm font-semibold flex items-center gap-2">
+      <span class="material-symbols-outlined" style="font-size:18px;">save</span> 저장하기
+    </button>
+  </div>
+</form>
+</div>
+</main>
+
+<script src="db.js"></script>
+<script>
+let currentPostId = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+  requireAdmin();
+
+  const urlParams = new URLSearchParams(window.location.search);
+  currentPostId = urlParams.get('id');
+
+  if (currentPostId) {
+    document.getElementById('page-title').innerText = '게시글 수정';
+    const posts = await getPosts();
+    const post = posts.find(p => String(p.id) === String(currentPostId));
+    if (post) {
+      document.getElementById('post-category-input').value = post.category || '뉴스';
+      document.getElementById('post-title-input').value = post.title || '';
+      document.getElementById('post-content-input').value = post.content || '';
+    }
+  }
+
+  document.getElementById('write-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submit-btn');
+    const statusMsg = document.getElementById('status-msg');
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin" style="font-size:18px;">sync</span> 저장 중...';
+    
+    statusMsg.className = 'text-sm p-3 rounded-lg bg-surface-container text-on-surface-variant block';
+    statusMsg.innerText = '저장 및 GitHub API 동기화를 진행하고 있습니다...';
+
+    const category = document.getElementById('post-category-input').value;
+    const title = document.getElementById('post-title-input').value.trim();
+    const content = document.getElementById('post-content-input').value;
+
+    const postData = {
+      category,
+      title,
+      content
+    };
+    if (currentPostId) {
+      postData.id = Number(currentPostId) || currentPostId;
+    }
+
+    try {
+      const saved = await savePost(postData);
+      statusMsg.className = 'text-sm p-3 rounded-lg bg-primary-container text-on-primary block';
+      statusMsg.innerText = '성공적으로 저장되었습니다! 이동합니다...';
+      setTimeout(() => {
+        window.location.href = `news-detail.html?id=${saved.id}`;
+      }, 800);
+    } catch(err) {
+      console.error(err);
+      statusMsg.className = 'text-sm p-3 rounded-lg bg-error-container text-on-error-container block';
+      statusMsg.innerText = '저장 중 오류가 발생했습니다: ' + err.message;
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">save</span> 다시 시도';
+    }
+  });
+});
+</script>
+</body>
+</html>
