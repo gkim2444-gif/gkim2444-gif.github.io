@@ -24,4 +24,4 @@ User-agent: Anthropic-AI
 Allow: /
 
 # Sitemap Location
-Sitemap: https://landing-page-gkim2444-gif.vercel.app/sitemap.xml
+Sitemap: https://gkim2444-gif.github.io/sitemap.xml

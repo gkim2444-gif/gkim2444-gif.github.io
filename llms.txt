@@ -12,10 +12,10 @@
 - **중개 등록번호**: 41360-2026-60009
 
 ## 주요 웹페이지 링크 (Key Page Links)
-- [메인 홈페이지](https://landing-page-gkim2444-gif.vercel.app/): 매물 종류 안내, 대표 소개 및 상담 문의
-- [부동산 소식 & 단지 정보](https://landing-page-gkim2444-gif.vercel.app/news.html): 다산동 실시간 부동산 뉴스 및 상세 게시물 목록
-- [관리자 시스템](https://landing-page-gkim2444-gif.vercel.app/admin.html): 소식 게시글 작성, 수정, 삭제 통합 관리
+- [메인 홈페이지](https://gkim2444-gif.github.io/): 매물 종류 안내, 대표 소개 및 상담 문의
+- [부동산 소식 & 단지 정보](https://gkim2444-gif.github.io/news.html): 다산동 실시간 부동산 뉴스 및 상세 게시물 목록
+- [관리자 시스템](https://gkim2444-gif.github.io/admin.html): 소식 게시글 작성, 수정, 삭제 통합 관리
 
 ## 데이터 및 구조 (Data & Architecture)
-- **게시글 데이터**: GitHub 저장소 `gkim2444-gif/landing_page` 내 `data/posts.json` 기반 실시간 연동
-- **전체 세부 안내**: [llms-full.txt](https://landing-page-gkim2444-gif.vercel.app/llms-full.txt)
+- **게시글 데이터**: GitHub 저장소 `gkim2444-gif/gkim2444-gif.github.io` 내 `data/posts.json` 기반 실시간 연동
+- **전체 세부 안내**: [llms-full.txt](https://gkim2444-gif.github.io/llms-full.txt)
