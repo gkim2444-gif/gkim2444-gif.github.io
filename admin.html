@@ -153,7 +153,7 @@
 </div>
 </footer>
 
-<script src="db.js"></script>
+<script src="db.js?v=3"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
   const loginView = document.getElementById('login-view');
@@ -169,23 +169,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     showLogin();
   }
 
-  loginForm.addEventListener('submit', async (e) => {
+  loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     loginError.classList.add('hidden');
-    const inputVal = passwordInput.value;
-    const cfg = await loadConfig();
-    const targetPassword = cfg.admin_password || 'Wlzla2424**';
+    const inputVal = (passwordInput.value || '').trim();
 
-    if (inputVal === targetPassword || inputVal === 'Wlzla2424**') {
+    if (inputVal === 'Wlzla2424**') {
       sessionStorage.setItem('isAdmin', 'true');
       location.reload();
     } else {
+      sessionStorage.removeItem('isAdmin');
       loginError.innerText = '비밀번호가 올바르지 않습니다.';
       loginError.classList.remove('hidden');
     }
   });
 
   logoutBtn.addEventListener('click', () => {
+    sessionStorage.clear();
     sessionStorage.removeItem('isAdmin');
     location.reload();
   });
