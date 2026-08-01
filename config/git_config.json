@@ -2,5 +2,6 @@
   "github_token": "YOUR_GITHUB_TOKEN",
   "github_owner": "gkim2444-gif",
   "github_repo": "landing_page",
-  "data_file_path": "data/posts.json"
+  "data_file_path": "data/posts.json",
+  "admin_password": "Wlzla2424**"
 }

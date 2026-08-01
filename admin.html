@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loginError.classList.add('hidden');
     const inputVal = passwordInput.value;
     const cfg = await loadConfig();
-    const targetPassword = cfg.admin_password || 'admin1234';
+    const targetPassword = cfg.admin_password || 'Wlzla2424**';
 
     if (inputVal === targetPassword) {
       sessionStorage.setItem('isAdmin', 'true');
