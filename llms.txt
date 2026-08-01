@@ -1,0 +1,21 @@
+# 지킴공인중개사사무소 (Jikim Real Estate Agency)
+
+> 경기도 남양주시 다산동 전문 공인중개사사무소입니다. 아파트, 상가, 오피스텔, 지식산업센터 매매·전세·월세 및 다산신도시 상권·단지 정밀 분석 서비스를 제공합니다.
+
+## 핵심 비즈니스 정보 (Core Business Information)
+- **상호명**: 지킴공인중개사사무소
+- **대표 공인중개사**: 김대근 대표
+- **주요 서비스 지역**: 경기도 남양주시 다산동 (다산신도시 전지역)
+- **주요 취급 매물**: 아파트, 주상복합, 상가/프라자, 오피스텔, 지식산업센터
+- **소재지**: 경기도 남양주시 다산중앙로 123, 1층
+- **대표 문의 전화**: 010-3111-1111
+- **중개 등록번호**: 123-45-67890
+
+## 주요 웹페이지 링크 (Key Page Links)
+- [메인 홈페이지](https://landing-page-gkim2444-gif.vercel.app/): 매물 종류 안내, 대표 소개 및 상담 문의
+- [부동산 소식 & 단지 정보](https://landing-page-gkim2444-gif.vercel.app/news.html): 다산동 실시간 부동산 뉴스 및 상세 게시물 목록
+- [관리자 시스템](https://landing-page-gkim2444-gif.vercel.app/admin.html): 소식 게시글 작성, 수정, 삭제 통합 관리
+
+## 데이터 및 구조 (Data & Architecture)
+- **게시글 데이터**: GitHub 저장소 `gkim2444-gif/landing_page` 내 `data/posts.json` 기반 실시간 연동
+- **전체 세부 안내**: [llms-full.txt](https://landing-page-gkim2444-gif.vercel.app/llms-full.txt)
