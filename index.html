@@ -172,6 +172,10 @@
   }
 </script>
 <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
         body {
             background-color: theme('colors.background');
             color: theme('colors.on-background');
@@ -199,10 +203,10 @@
   </a>
 </div>
 <nav class="hidden md:flex gap-stack-lg">
-<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="index.html">매물검색</a>
-<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="index.html">단지정보</a>
+<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="#property-section">매물검색</a>
+<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="#recent-board-section">단지정보</a>
 <a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="news.html">뉴스/공지</a>
-<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="index.html">상담예약</a>
+<a class="font-body text-body text-on-surface-variant hover:text-[#FF8C00] transition-colors hover:bg-surface-container-low px-3 py-1 rounded-md" href="#contact-section">상담예약</a>
 </nav>
 <button onclick="location.href='tel:010-3111-1111'" class="hidden md:flex items-center gap-2 bg-[#FF8C00] text-white font-body text-body px-4 py-2 rounded-full hover:opacity-90 transition-colors active:scale-95">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
@@ -266,7 +270,7 @@
 </div>
 </section>
 
-<section class="py-section-gap px-container-margin max-w-[1200px] mx-auto">
+<section id="property-section" class="py-section-gap px-container-margin max-w-[1200px] mx-auto">
 <div class="mb-stack-lg text-center md:text-left">
 <h2 class="font-h2 text-h2 text-on-surface">다양한 매물을 만나보세요</h2>
 <p class="font-body text-body text-on-surface-variant mt-2">다산신도시의 프리미엄 매물을 선별하여 추천해 드립니다.</p>
@@ -320,7 +324,7 @@
 </div>
 </section>
 
-<section class="py-section-gap px-container-margin max-w-[1000px] mx-auto">
+<section id="contact-section" class="py-section-gap px-container-margin max-w-[1000px] mx-auto">
 <div class="bg-[#1A2B48] dark:bg-inverse-surface rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-stack-lg shadow-lifted">
 <div class="text-center md:text-left flex-1">
 <h2 class="font-h2 text-h2 text-white dark:text-primary-fixed mb-2">궁금한 매물이 있으신가요?</h2>
