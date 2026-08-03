@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <script>
-  if (!window.location.search.includes('v=20260803_6')) {
+  if (!window.location.search.includes('v=20260803_7')) {
     const url = new URL(window.location.href);
-    url.searchParams.set('v', '20260803_6');
+    url.searchParams.set('v', '20260803_7');
     window.location.replace(url.toString());
   }
 </script>
@@ -418,12 +418,17 @@ function exportRichEditorToMarkdown(editorEl) {
   return walk(doc.body).replace(/\n{3,}/g, '\n\n').trim();
 }
 
-// 전역(Global Window) 복사-붙여넣기 가로채기 (중복 호출 방지 락 탑재)
+// 전역(Global Window) 복사-붙여넣기 가로채기 (중복 호출 방지 락 & 선제 차단 탑재)
 let isPastingLock = false;
 async function handleGlobalPasteEvent(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+  }
+
   if (isPastingLock) return;
   isPastingLock = true;
-  setTimeout(() => { isPastingLock = false; }, 400);
+  setTimeout(() => { isPastingLock = false; }, 500);
 
   const cData = e.clipboardData || window.clipboardData;
   if (!cData) return;
@@ -434,7 +439,6 @@ async function handleGlobalPasteEvent(e) {
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       if (item.type && item.type.startsWith('image/')) {
-        e.preventDefault();
         const blob = item.getAsFile();
         if (blob) {
           try {
@@ -464,7 +468,6 @@ async function handleGlobalPasteEvent(e) {
       }
     }
     if (imageFound) {
-      e.preventDefault();
       showEditorToast('✅ 복사한 사진 파일이 즉시 첨부되었습니다!');
       setTimeout(hideEditorToast, 2500);
       return;
@@ -474,7 +477,6 @@ async function handleGlobalPasteEvent(e) {
   // 3. HTML 데이터 검사 (웹페이지/네이버 블로그 등에서 이미지/글 복사 시)
   const htmlData = cData.getData('text/html');
   if (htmlData && (htmlData.toLowerCase().includes('<img') || htmlData.toLowerCase().includes('src='))) {
-    e.preventDefault();
     const cleanedHtml = cleanPastedHtml(htmlData);
     document.execCommand('insertHTML', false, cleanedHtml);
     showEditorToast('✅ 복사한 글과 사진이 깨짐 없이 깔끔하게 붙여넣어졌습니다!');
@@ -490,7 +492,6 @@ async function handleGlobalPasteEvent(e) {
         /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(trimmed) ||
         trimmed.includes('pstatic.net') ||
         trimmed.includes('naver.net')) {
-      e.preventDefault();
       insertImageNodeToEditor(trimmed);
       showEditorToast('✅ 네이버 사진 주소가 본문에 붙여넣어졌습니다.');
       setTimeout(hideEditorToast, 2500);
@@ -557,8 +558,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // 전역 Window 단일 Paste 수신 (중복 호출 방지)
-  window.addEventListener('paste', handleGlobalPasteEvent);
+  // 캡처링 단계를 통한 강력한 단일 Paste 수신 (중복 호출 100% 방지)
+  window.addEventListener('paste', handleGlobalPasteEvent, true);
 
   // Drag & Drop 이미지 파일 드롭 처리
   richEditor.addEventListener('dragover', (e) => {
