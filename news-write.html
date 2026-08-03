@@ -235,25 +235,30 @@ function cleanPastedHtml(htmlStr) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlStr, 'text/html');
 
-  // 네이버/다음 에디터의 불필요한 컨트롤 버튼 및 불필요 요소 제거
+  // 1. 네이버/다음 에디터의 불필요한 컨트롤 버튼 및 캡처 요소 제거
   const junkSelectors = [
-    'button', '.se-module-image-link', '.se-image-resource',
-    '.se-component-content-btn', '.se-image-delete', '.se-caption',
-    'script', 'style', 'iframe', 'object'
+    'button', 'script', 'style', 'iframe', 'object',
+    '.se-module-image-link', '.se-image-resource', '.se-component-content-btn',
+    '.se-image-delete', '.se-caption', '.se-caption-rect', '.se-module-text-link',
+    '.se-section-image-link', '[class*="se-image-delete"]', '[class*="se-btn"]'
   ];
   junkSelectors.forEach(sel => {
     doc.querySelectorAll(sel).forEach(el => el.remove());
   });
 
-  // 제거할 에디터 찌꺼기 텍스트 목록
-  const junkTexts = [
-    '대표사진 삭제', '사진 편집', '작게작게문서', '너비문서', '너비옆트임옆트임', '삭제삭제', 'AI 활용 설정', '사진 설명을 입력하세요.'
-  ];
-
-  // 이미지 태그 정제 & referrerpolicy 부여 (핫링크 엑박 방지)
+  // 2. 이미지 태그 정제: blob: URL 해제 및 data-src 원본 주소 추출 & referrerpolicy 부여
   doc.querySelectorAll('img').forEach(img => {
-    let src = img.getAttribute('src') || img.getAttribute('data-src') || img.getAttribute('data-lazy-src');
-    if (src) {
+    let src = img.getAttribute('data-src') ||
+              img.getAttribute('data-lazy-src') ||
+              img.getAttribute('data-origin-src') ||
+              img.getAttribute('src');
+
+    if (src && src.startsWith('blob:')) {
+      const altSrc = img.getAttribute('data-src') || img.getAttribute('data-origin-src');
+      if (altSrc) src = altSrc;
+    }
+
+    if (src && !src.startsWith('blob:')) {
       img.setAttribute('src', src);
       img.setAttribute('referrerpolicy', 'no-referrer');
       img.className = 'max-w-full h-auto rounded-xl my-4 shadow-md border border-outline-variant block';
@@ -263,13 +268,14 @@ function cleanPastedHtml(htmlStr) {
     }
   });
 
-  // 찌꺼기 텍스트 노드 제거
+  // 3. 네이버 에디터 찌꺼기 텍스트 노드 제거
+  const junkRegex = /(대표사진\s*삭제|사진\s*편집|작게작게문서|너비문서|너비옆트임|삭제삭제|AI\s*활용|사진\s*설명을\s*입력하세요|\.png|\.jpg)/i;
   const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null, false);
   let node;
   let nodesToRemove = [];
   while (node = walker.nextNode()) {
     const val = node.nodeValue.trim();
-    if (junkTexts.some(jt => val.includes(jt))) {
+    if (junkRegex.test(val) && val.length < 60) {
       nodesToRemove.push(node);
     }
   }
