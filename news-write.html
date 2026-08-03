@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <script>
-  if (!window.location.search.includes('v=20260803_5')) {
+  if (!window.location.search.includes('v=20260803_6')) {
     const url = new URL(window.location.href);
-    url.searchParams.set('v', '20260803_5');
+    url.searchParams.set('v', '20260803_6');
     window.location.replace(url.toString());
   }
 </script>
@@ -418,8 +418,13 @@ function exportRichEditorToMarkdown(editorEl) {
   return walk(doc.body).replace(/\n{3,}/g, '\n\n').trim();
 }
 
-// 전역(Global Window) 복사-붙여넣기 가로채기
+// 전역(Global Window) 복사-붙여넣기 가로채기 (중복 호출 방지 락 탑재)
+let isPastingLock = false;
 async function handleGlobalPasteEvent(e) {
+  if (isPastingLock) return;
+  isPastingLock = true;
+  setTimeout(() => { isPastingLock = false; }, 400);
+
   const cData = e.clipboardData || window.clipboardData;
   if (!cData) return;
 
@@ -552,9 +557,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // 전역 Window & Editor Paste 이중 수신
+  // 전역 Window 단일 Paste 수신 (중복 호출 방지)
   window.addEventListener('paste', handleGlobalPasteEvent);
-  richEditor.addEventListener('paste', handleGlobalPasteEvent);
 
   // Drag & Drop 이미지 파일 드롭 처리
   richEditor.addEventListener('dragover', (e) => {
