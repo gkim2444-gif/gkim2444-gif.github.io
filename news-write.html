@@ -2,6 +2,13 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<script>
+  if (!window.location.search.includes('v=')) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('v', '20260803_3');
+    window.location.replace(url.toString());
+  }
+</script>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
