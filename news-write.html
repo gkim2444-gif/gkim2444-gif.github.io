@@ -235,26 +235,25 @@ function cleanPastedHtml(htmlStr) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlStr, 'text/html');
 
-  // 1. 네이버/다음 에디터의 불필요한 컨트롤 버튼 및 캡처 요소 제거
+  // 1. 네이버/다음 에디터의 불필요한 컨트롤 버튼 및 캡처 요소만 제거 (이미지 태그 .se-image-resource 는 절대로 삭제 금지)
   const junkSelectors = [
     'button', 'script', 'style', 'iframe', 'object',
-    '.se-module-image-link', '.se-image-resource', '.se-component-content-btn',
-    '.se-image-delete', '.se-caption', '.se-caption-rect', '.se-module-text-link',
-    '.se-section-image-link', '[class*="se-image-delete"]', '[class*="se-btn"]'
+    '.se-component-content-btn', '.se-image-delete', '.se-caption-rect',
+    '[class*="se-image-delete"]', '[class*="se-btn"]'
   ];
   junkSelectors.forEach(sel => {
     doc.querySelectorAll(sel).forEach(el => el.remove());
   });
 
-  // 2. 이미지 태그 정제: blob: URL 해제 및 data-src 원본 주소 추출 & referrerpolicy 부여
+  // 2. 이미지 태그 살리기 & data-src / data-lazy-src 원본 주소 추출 및 referrerpolicy="no-referrer" 부여
   doc.querySelectorAll('img').forEach(img => {
-    let src = img.getAttribute('data-src') ||
-              img.getAttribute('data-lazy-src') ||
+    let src = img.getAttribute('data-lazy-src') ||
+              img.getAttribute('data-src') ||
               img.getAttribute('data-origin-src') ||
               img.getAttribute('src');
 
     if (src && src.startsWith('blob:')) {
-      const altSrc = img.getAttribute('data-src') || img.getAttribute('data-origin-src');
+      const altSrc = img.getAttribute('data-lazy-src') || img.getAttribute('data-src') || img.getAttribute('data-origin-src');
       if (altSrc) src = altSrc;
     }
 
@@ -263,20 +262,23 @@ function cleanPastedHtml(htmlStr) {
       img.setAttribute('referrerpolicy', 'no-referrer');
       img.className = 'max-w-full h-auto rounded-xl my-4 shadow-md border border-outline-variant block';
       img.style.maxHeight = '500px';
-    } else {
-      img.remove();
     }
   });
 
-  // 3. 네이버 에디터 찌꺼기 텍스트 노드 제거
-  const junkRegex = /(대표사진\s*삭제|사진\s*편집|작게작게문서|너비문서|너비옆트임|삭제삭제|AI\s*활용|사진\s*설명을\s*입력하세요|\.png|\.jpg)/i;
+  // 3. 네이버 찌꺼기 버튼 텍스트만 핀포인트 제거
+  const junkTexts = [
+    '대표사진 삭제', '사진 편집', '작게작게문서', '너비문서', '너비옆트임', '삭제삭제', 'AI 활용 설정'
+  ];
+
   const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null, false);
   let node;
   let nodesToRemove = [];
   while (node = walker.nextNode()) {
     const val = node.nodeValue.trim();
-    if (junkRegex.test(val) && val.length < 60) {
-      nodesToRemove.push(node);
+    if (junkTexts.some(jt => val === jt || val.includes(jt))) {
+      if (val.length < 40) {
+        nodesToRemove.push(node);
+      }
     }
   }
   nodesToRemove.forEach(n => {
@@ -473,6 +475,22 @@ async function handleGlobalPasteEvent(e) {
     showEditorToast('✅ 복사한 글과 사진이 깨짐 없이 깔끔하게 붙여넣어졌습니다!');
     setTimeout(hideEditorToast, 2500);
     return;
+  }
+
+  // 4. 이미지 텍스트 URL (네이버 블로그 이미지 주소 복사 포함)
+  const textData = cData.getData('text/plain');
+  if (textData && textData.trim()) {
+    const trimmed = textData.trim();
+    if (trimmed.startsWith('data:image/') ||
+        /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(trimmed) ||
+        trimmed.includes('pstatic.net') ||
+        trimmed.includes('naver.net')) {
+      e.preventDefault();
+      insertImageNodeToEditor(trimmed);
+      showEditorToast('✅ 네이버 사진 주소가 본문에 붙여넣어졌습니다.');
+      setTimeout(hideEditorToast, 2500);
+      return;
+    }
   }
 }
 
