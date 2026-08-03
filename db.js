@@ -43,7 +43,14 @@ function escapeHtml(str) {
 }
 
 function parseInline(str) {
+  if (!str) return '';
   return str
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+      return `<img src="${src}" alt="${escapeHtml(alt)}" class="max-w-full h-auto rounded-xl my-4 shadow-sm border border-outline-variant block" loading="lazy" />`;
+    })
+    .replace(/&lt;img\s+([^&]+)src=&quot;([^&quot;]+)&quot;([^&]*)(&gt;|\/&gt;|&lt;\/img&gt;)/gi, function(match, p1, src, p3) {
+      return `<img src="${src}" class="max-w-full h-auto rounded-xl my-4 shadow-sm border border-outline-variant block" loading="lazy" />`;
+    })
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(/~~([^~]+)~~/g, '<del>$1</del>')
@@ -157,6 +164,8 @@ function markdownToText(src) {
   if (!src) return '';
   return src
     .replace(/```[\s\S]*?```/g, '')
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '')
+    .replace(/<img[^>]*>/gi, '')
     .replace(/`([^`]+)`/g, '$1')
     .replace(/^#{1,6}\s+/gm, '')
     .replace(/^\s*&gt;\s+/gm, '')
