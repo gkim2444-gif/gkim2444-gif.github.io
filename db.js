@@ -46,10 +46,10 @@ function parseInline(str) {
   if (!str) return '';
   return str
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
-      return `<img src="${src}" alt="${escapeHtml(alt)}" class="max-w-full h-auto rounded-xl my-4 shadow-sm border border-outline-variant block" loading="lazy" />`;
+      return `<img src="${src}" alt="${escapeHtml(alt)}" referrerpolicy="no-referrer" class="max-w-full h-auto rounded-xl my-4 shadow-sm border border-outline-variant block" loading="lazy" />`;
     })
     .replace(/&lt;img\s+([^&]+)src=&quot;([^&quot;]+)&quot;([^&]*)(&gt;|\/&gt;|&lt;\/img&gt;)/gi, function(match, p1, src, p3) {
-      return `<img src="${src}" class="max-w-full h-auto rounded-xl my-4 shadow-sm border border-outline-variant block" loading="lazy" />`;
+      return `<img src="${src}" referrerpolicy="no-referrer" class="max-w-full h-auto rounded-xl my-4 shadow-sm border border-outline-variant block" loading="lazy" />`;
     })
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
