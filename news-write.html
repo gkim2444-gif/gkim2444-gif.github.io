@@ -170,7 +170,7 @@
 </div>
 </main>
 
-<script src="db.js?v=20260804_1"></script>
+<script src="db.js?v=20260804_2"></script>
 <script>
 let currentPostId = null;
 
@@ -492,17 +492,24 @@ function handleGlobalPasteEvent(e) {
   }
 }
 
-// 헬퍼: 텍스트 핀포인트 삽입 (Selection Range & 줄바꿈 보존)
+// 헬퍼: 텍스트 핀포인트 삽입 (execCommand 우선 + Range Fallback)
 function insertTextToEditor(text) {
   if (!text) return;
   const editor = document.getElementById('rich-editor');
   if (!editor) return;
   editor.focus();
 
+  try {
+    if (document.queryCommandSupported && document.queryCommandSupported('insertText')) {
+      if (document.execCommand('insertText', false, text)) return;
+    }
+  } catch(e) {}
+
   const sel = window.getSelection();
   if (sel && sel.rangeCount > 0) {
     let range = sel.getRangeAt(0);
-    if (!editor.contains(range.commonAncestorContainer)) {
+    const container = range.commonAncestorContainer;
+    if (container !== editor && !editor.contains(container)) {
       range = document.createRange();
       range.selectNodeContents(editor);
       range.collapse(false);
@@ -532,17 +539,24 @@ function insertTextToEditor(text) {
   }
 }
 
-// 헬퍼: HTML 핀포인트 삽입
+// 헬퍼: HTML 핀포인트 삽입 (execCommand 우선 + Range Fallback)
 function insertHTMLToEditor(htmlStr) {
   if (!htmlStr) return;
   const editor = document.getElementById('rich-editor');
   if (!editor) return;
   editor.focus();
 
+  try {
+    if (document.queryCommandSupported && document.queryCommandSupported('insertHTML')) {
+      if (document.execCommand('insertHTML', false, htmlStr)) return;
+    }
+  } catch(e) {}
+
   const sel = window.getSelection();
   if (sel && sel.rangeCount > 0) {
     let range = sel.getRangeAt(0);
-    if (!editor.contains(range.commonAncestorContainer)) {
+    const container = range.commonAncestorContainer;
+    if (container !== editor && !editor.contains(container)) {
       range = document.createRange();
       range.selectNodeContents(editor);
       range.collapse(false);
