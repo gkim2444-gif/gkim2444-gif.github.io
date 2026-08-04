@@ -180,21 +180,36 @@ function markdownToText(src) {
 }
 
 async function getPosts() {
+  let localPosts = [];
   const localData = localStorage.getItem('board_posts');
   if (localData) {
     try {
-      return JSON.parse(localData);
+      localPosts = JSON.parse(localData) || [];
     } catch(e) {}
   }
+
+  let serverPosts = [];
   try {
-    const r = await fetch('data/posts.json');
+    const r = await fetch('data/posts.json?v=' + Date.now());
     if (r.ok) {
-      const posts = await r.json();
-      localStorage.setItem('board_posts', JSON.stringify(posts));
-      return posts;
+      serverPosts = await r.json();
     }
   } catch(e) {}
-  return [];
+
+  // 서버 데이터와 로컬 스토리지 데이터를 ID 기준으로 스마트 병합 (유실 방지)
+  const map = new Map();
+  serverPosts.forEach(p => {
+    if (p && p.id) map.set(String(p.id), p);
+  });
+  localPosts.forEach(p => {
+    if (p && p.id) map.set(String(p.id), p);
+  });
+
+  const merged = Array.from(map.values());
+  merged.sort((a, b) => Number(b.id || 0) - Number(a.id || 0));
+
+  localStorage.setItem('board_posts', JSON.stringify(merged));
+  return merged;
 }
 
 async function savePost(post) {

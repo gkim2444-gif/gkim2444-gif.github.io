@@ -2,13 +2,6 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<script>
-  if (!window.location.search.includes('v=20260803_7')) {
-    const url = new URL(window.location.href);
-    url.searchParams.set('v', '20260803_7');
-    window.location.replace(url.toString());
-  }
-</script>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
@@ -177,7 +170,7 @@
 </div>
 </main>
 
-<script src="db.js"></script>
+<script src="db.js?v=20260804_1"></script>
 <script>
 let currentPostId = null;
 
@@ -418,84 +411,163 @@ function exportRichEditorToMarkdown(editorEl) {
   return walk(doc.body).replace(/\n{3,}/g, '\n\n').trim();
 }
 
-// 전역(Global Window) 복사-붙여넣기 가로채기 (중복 호출 방지 락 & 선제 차단 탑재)
+// 전역/에디터 복사-붙여넣기 가로채기 (100% 보장 핸들러)
 let isPastingLock = false;
-async function handleGlobalPasteEvent(e) {
-  if (e) {
-    if (typeof e.preventDefault === 'function') e.preventDefault();
-    if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
-  }
-
-  if (isPastingLock) return;
-  isPastingLock = true;
-  setTimeout(() => { isPastingLock = false; }, 500);
-
-  const cData = e.clipboardData || window.clipboardData;
+function handleGlobalPasteEvent(e) {
+  const cData = e ? (e.clipboardData || window.clipboardData) : null;
   if (!cData) return;
 
-  // 1. Items 검사 (캡처 이미지 Win+Shift+S 또는 이미지 복사)
+  const target = e.target;
+  const isInputOrTextarea = target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA');
+
+  // 제목/카테고리 등 일반 INPUT 태그인 경우 브라우저 기본 붙여넣기 동작에 100% 위임
+  if (isInputOrTextarea) {
+    return;
+  }
+
+  // 에디터에서의 모든 붙여넣기는 명시적으로 제어
+  if (e.preventDefault) e.preventDefault();
+  if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+  // 1. 캡처 이미지(Win+Shift+S) 또는 복사된 이미지 파일 처리
   const items = cData.items;
+  let imageBlob = null;
   if (items && items.length > 0) {
     for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      if (item.type && item.type.startsWith('image/')) {
-        const blob = item.getAsFile();
-        if (blob) {
-          try {
-            const dataUrl = await compressBlobToDataUrl(blob);
-            insertImageNodeToEditor(dataUrl);
-            showEditorToast('✅ 캡처 사진이 즉시 첨부되었습니다!');
-            setTimeout(hideEditorToast, 2500);
-          } catch(err) {
-            const blobUrl = URL.createObjectURL(blob);
-            insertImageNodeToEditor(blobUrl);
-          }
-        }
-        return;
+      if (items[i].type && items[i].type.startsWith('image/')) {
+        imageBlob = items[i].getAsFile();
+        break;
       }
     }
   }
 
-  // 2. Files 검사 (파일 복사)
-  if (cData.files && cData.files.length > 0) {
-    let imageFound = false;
-    for (let f of cData.files) {
-      if (f.type && f.type.startsWith('image/')) {
-        imageFound = true;
-        compressBlobToDataUrl(f).then(dataUrl => {
-          insertImageNodeToEditor(dataUrl);
-        });
-      }
-    }
-    if (imageFound) {
-      showEditorToast('✅ 복사한 사진 파일이 즉시 첨부되었습니다!');
+  if (imageBlob) {
+    if (isPastingLock) return;
+    isPastingLock = true;
+    setTimeout(() => { isPastingLock = false; }, 300);
+
+    compressBlobToDataUrl(imageBlob).then(dataUrl => {
+      insertImageNodeToEditor(dataUrl);
+      showEditorToast('✅ 캡처 사진이 즉시 첨부되었습니다!');
+      setTimeout(hideEditorToast, 2500);
+    }).catch(err => {
+      const blobUrl = URL.createObjectURL(imageBlob);
+      insertImageNodeToEditor(blobUrl);
+    });
+    return;
+  }
+
+  // 2. 외부 웹페이지 / 네이버 블로그 HTML 복사 시
+  const htmlData = cData.getData('text/html');
+  if (htmlData && htmlData.trim()) {
+    const cleanedHtml = cleanPastedHtml(htmlData);
+    if (cleanedHtml && cleanedHtml.trim()) {
+      insertHTMLToEditor(cleanedHtml);
+      showEditorToast('✅ 복사한 글과 사진이 깨짐 없이 붙여넣어졌습니다!');
       setTimeout(hideEditorToast, 2500);
       return;
     }
   }
 
-  // 3. HTML 데이터 검사 (웹페이지/네이버 블로그 등에서 이미지/글 복사 시)
-  const htmlData = cData.getData('text/html');
-  if (htmlData && (htmlData.toLowerCase().includes('<img') || htmlData.toLowerCase().includes('src='))) {
-    const cleanedHtml = cleanPastedHtml(htmlData);
-    document.execCommand('insertHTML', false, cleanedHtml);
-    showEditorToast('✅ 복사한 글과 사진이 깨짐 없이 깔끔하게 붙여넣어졌습니다!');
-    setTimeout(hideEditorToast, 2500);
-    return;
-  }
-
-  // 4. 이미지 텍스트 URL (네이버 블로그 이미지 주소 복사 포함)
+  // 3. 이미지 URL 텍스트 주소 복사 시
   const textData = cData.getData('text/plain');
   if (textData && textData.trim()) {
     const trimmed = textData.trim();
     if (trimmed.startsWith('data:image/') ||
         /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(trimmed) ||
-        trimmed.includes('pstatic.net') ||
-        trimmed.includes('naver.net')) {
+        ((trimmed.includes('pstatic.net') || trimmed.includes('naver.net')) && (trimmed.includes('/img/') || trimmed.includes('blogfiles') || trimmed.includes('postfiles')))) {
       insertImageNodeToEditor(trimmed);
-      showEditorToast('✅ 네이버 사진 주소가 본문에 붙여넣어졌습니다.');
+      showEditorToast('✅ 사진 주소가 본문에 붙여넣어졌습니다.');
       setTimeout(hideEditorToast, 2500);
       return;
+    }
+  }
+
+  // 4. 일반 텍스트 붙여넣기 (메모장, 카카오톡, 텍스트 복사 시)
+  if (textData && textData.length > 0) {
+    insertTextToEditor(textData);
+    showEditorToast('✅ 텍스트가 붙여넣어졌습니다.');
+    setTimeout(hideEditorToast, 1500);
+    return;
+  }
+}
+
+// 헬퍼: 텍스트 핀포인트 삽입 (Selection Range & 줄바꿈 보존)
+function insertTextToEditor(text) {
+  if (!text) return;
+  const editor = document.getElementById('rich-editor');
+  if (!editor) return;
+  editor.focus();
+
+  const sel = window.getSelection();
+  if (sel && sel.rangeCount > 0) {
+    let range = sel.getRangeAt(0);
+    if (!editor.contains(range.commonAncestorContainer)) {
+      range = document.createRange();
+      range.selectNodeContents(editor);
+      range.collapse(false);
+    }
+    range.deleteContents();
+
+    const lines = text.split('\n');
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < lines.length; i++) {
+      if (i > 0) frag.appendChild(document.createElement('br'));
+      if (lines[i]) frag.appendChild(document.createTextNode(lines[i]));
+    }
+    const lastChild = frag.lastChild;
+    range.insertNode(frag);
+    if (lastChild) {
+      range.setStartAfter(lastChild);
+      range.setEndAfter(lastChild);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  } else {
+    const lines = text.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      if (i > 0) editor.appendChild(document.createElement('br'));
+      if (lines[i]) editor.appendChild(document.createTextNode(lines[i]));
+    }
+  }
+}
+
+// 헬퍼: HTML 핀포인트 삽입
+function insertHTMLToEditor(htmlStr) {
+  if (!htmlStr) return;
+  const editor = document.getElementById('rich-editor');
+  if (!editor) return;
+  editor.focus();
+
+  const sel = window.getSelection();
+  if (sel && sel.rangeCount > 0) {
+    let range = sel.getRangeAt(0);
+    if (!editor.contains(range.commonAncestorContainer)) {
+      range = document.createRange();
+      range.selectNodeContents(editor);
+      range.collapse(false);
+    }
+    range.deleteContents();
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlStr;
+    const frag = document.createDocumentFragment();
+    let node, lastNode;
+    while ((node = tempDiv.firstChild)) {
+      lastNode = frag.appendChild(node);
+    }
+    range.insertNode(frag);
+    if (lastNode) {
+      range.setStartAfter(lastNode);
+      range.setEndAfter(lastNode);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  } else {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlStr;
+    while (tempDiv.firstChild) {
+      editor.appendChild(tempDiv.firstChild);
     }
   }
 }
@@ -535,30 +607,46 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 클립보드 버튼으로 직접 붙여넣기
   btnPasteClipboard.addEventListener('click', async () => {
     try {
-      if (navigator.clipboard && navigator.clipboard.read) {
-        const clipboardItems = await navigator.clipboard.read();
-        for (const item of clipboardItems) {
-          for (const type of item.types) {
-            if (type.startsWith('image/')) {
-              const blob = await item.getType(type);
-              const dataUrl = await compressBlobToDataUrl(blob);
-              insertImageNodeToEditor(dataUrl);
-              showEditorToast('✅ 클립보드 사진이 붙여넣어졌습니다.');
-              setTimeout(hideEditorToast, 2500);
-              return;
+      if (navigator.clipboard) {
+        if (navigator.clipboard.read) {
+          const clipboardItems = await navigator.clipboard.read();
+          for (const item of clipboardItems) {
+            for (const type of item.types) {
+              if (type.startsWith('image/')) {
+                const blob = await item.getType(type);
+                const dataUrl = await compressBlobToDataUrl(blob);
+                insertImageNodeToEditor(dataUrl);
+                showEditorToast('✅ 클립보드 사진이 붙여넣어졌습니다.');
+                setTimeout(hideEditorToast, 2500);
+                return;
+              }
             }
           }
         }
+        if (navigator.clipboard.readText) {
+          const text = await navigator.clipboard.readText();
+          if (text && text.trim()) {
+            const trimmed = text.trim();
+            if (trimmed.startsWith('data:image/') || /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(trimmed)) {
+              insertImageNodeToEditor(trimmed);
+            } else {
+              insertTextToEditor(text);
+            }
+            showEditorToast('✅ 클립보드 내용이 붙여넣어졌습니다.');
+            setTimeout(hideEditorToast, 2500);
+            return;
+          }
+        }
       }
-      showEditorToast('💡 Ctrl+V 키를 누르시면 사진이 즉시 첨부됩니다.');
+      showEditorToast('💡 Ctrl+V 키를 누르시면 본문에 즉시 붙여넣어집니다.');
       setTimeout(hideEditorToast, 3500);
     } catch (err) {
-      showEditorToast('💡 Ctrl+V 키를 누르시면 사진이 즉시 첨부됩니다.');
+      showEditorToast('💡 Ctrl+V 키를 누르시면 본문에 즉시 붙여넣어집니다.');
       setTimeout(hideEditorToast, 3500);
     }
   });
 
-  // 캡처링 단계를 통한 강력한 단일 Paste 수신 (중복 호출 100% 방지)
+  richEditor.addEventListener('paste', handleGlobalPasteEvent);
   window.addEventListener('paste', handleGlobalPasteEvent, true);
 
   // Drag & Drop 이미지 파일 드롭 처리
